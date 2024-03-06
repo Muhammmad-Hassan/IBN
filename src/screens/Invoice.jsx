@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import Context from "../helper/Context";
+import {IoMdClose} from "react-icons/io"
 
 function Invoice() {
   const cartItem = useSelector((state) => state.cart.cart);
@@ -15,11 +16,7 @@ function Invoice() {
   const formattedDate = currentDate.toLocaleDateString("en-GB", options);
 
   const handlePrint = () => {
-    const printContents = document.getElementById("invoice").innerHTML;
-    // const originalContents = document.body.innerHTML;
-    document.body.innerHTML = printContents;
-    window.print();
-    // document.body.innerHTML = originalContents;
+    window.print(document.getElementById("invoice"));
   };
 
   return (
@@ -36,8 +33,8 @@ function Invoice() {
             <p className="text-gray-600">{formattedDate}</p>
           </div>
           <div>
-            <img
-              src="logo.png"
+            <IoMdClose
+              
               className="text-2xl p-1 bg-red-600 fill-white hover:fill-red-500 hover:bg-white hover:outline outline-1 outline-red-500 transition-all duration-200  cursor-pointer rounded-sm"
               onClick={() => setPrintVale(!printval)}
             />
@@ -64,7 +61,7 @@ function Invoice() {
                 <tr>
                   <th className="border border-gray-300 py-2 px-4">Item</th>
                   <th className="border border-gray-300 py-2 px-4">Price</th>
-                  <th className="border border-gray-300 py-2 px-4">Quantity</th>
+                  <th className="border border-gray-300 py-2 px-4">Qty</th>
                   <th className="border border-gray-300 py-2 px-4">Total</th>
                 </tr>
               </thead>
@@ -85,12 +82,12 @@ function Invoice() {
                     </tr>
                   ))
                 ) : (
-                  <h4 className="text-center font-bold text-2xl  mt-10">
-                    The Cart is empty
-                  </h4>
+                  <tr>
+                    <td className="text-center border border-gray-300" colSpan="4">
+                      The Cart is empty
+                    </td>
+                  </tr>
                 )}
-
-                {/* Add more rows for additional items */}
               </tbody>
             </table>
           </div>
