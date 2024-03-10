@@ -7,7 +7,7 @@ import CartItem from "./CartIem";
 
 function Cart() {
   const { active, setActive } = useContext(Context);
-  const { printval, setPrintVale } = useContext(Context);
+  const {  setPrintVale } = useContext(Context);
   const cartItem = useSelector((state) => state.cart.cart);
   let totalPrice = cartItem.reduce(
     (total, food) => total + Number(food.qty) * Number(food.price),
@@ -27,8 +27,8 @@ function Cart() {
            
               <span className="font-bold text-x  ">My Orders</span>
               <button
-                className="border   py-1 px-5 rounded-md shadow-lg border-gray-400 bg-gray-200"
-                onClick={() => setPrintVale(true)}
+                className="border  py-1 px-5 rounded-md shadow-lg border-gray-400 bg-gray-200"
+                onClick={() => setPrintVale(true) &&  setActive(!active)}
               >
                 Proceid
               </button>

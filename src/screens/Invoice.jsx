@@ -1,9 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { useSelector } from "react-redux";
 import Context from "../helper/Context";
-import {IoMdClose} from "react-icons/io"
+import { IoMdClose } from "react-icons/io";
+import ReactToPrint from "react-to-print";
 
 function Invoice() {
+  const componentRef = useRef();
   const cartItem = useSelector((state) => state.cart.cart);
   const { printval, setPrintVale } = useContext(Context);
   let totalPrice = cartItem.reduce(
@@ -11,13 +13,21 @@ function Invoice() {
     0
   );
 
+  const handlClick = () => {
+    const existingDataString = localStorage.getItem("cartItem");
+
+    const existingData = existingDataString
+      ? JSON.parse(existingDataString)
+      : [];
+
+    const newData = [...existingData, ...cartItem];
+
+    localStorage.setItem("cartItem", JSON.stringify(newData));
+  };
+
   const currentDate = new Date();
   const options = { year: "numeric", month: "2-digit", day: "2-digit" };
   const formattedDate = currentDate.toLocaleDateString("en-GB", options);
-
-  const handlePrint = () => {
-    window.print(document.getElementById("invoice"));
-  };
 
   return (
     <>
@@ -26,15 +36,17 @@ function Invoice() {
         className={`fixed top-14 bg-white right-0 border-2 border-solid border-yellow-500 shadow-lg w-full lg:w-[24vw]   p-5 h-[100vh]  ${
           printval ? "translate-x-0" : "translate-x-full"
         } transition-all duration-500 z-50 `}
+        ref={componentRef}
       >
         <div className="flex justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-bold">Invoice</h1>
+            <h1 className="text-2xl font-bold" onClick={handlClick}>
+              Invoice
+            </h1>
             <p className="text-gray-600">{formattedDate}</p>
           </div>
           <div>
             <IoMdClose
-              
               className="text-3xl p-1 bg-red-600 fill-white hover:fill-red-500 hover:bg-white hover:outline outline-1 outline-red-500 transition-all duration-200  cursor-pointer rounded-sm"
               onClick={() => setPrintVale(!printval)}
             />
@@ -78,12 +90,17 @@ function Invoice() {
                       <td className="border border-gray-300 py-2 px-4">
                         {item.qty}
                       </td>
-                      <td className="border border-gray-300 py-2 px-4">{item.price * item.qty}</td>
+                      <td className="border border-gray-300 py-2 px-4">
+                        {item.price * item.qty}
+                      </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td className="text-center border border-gray-300" colSpan="4">
+                    <td
+                      className="text-center border border-gray-300"
+                      colSpan="4"
+                    >
                       The Cart is empty
                     </td>
                   </tr>
@@ -98,13 +115,19 @@ function Invoice() {
             </p>
           </div>
         </div>
-        <button
-          className={`border   absolute top-6 right-36 py-1 px-8   rounded-md shadow-lg border-gray-400 bg-gray-200`}
-          onClick={handlePrint}
-        >
-          Print
-        </button>
       </div>
+      <ReactToPrint
+        trigger={() => (
+          <button
+            className={`border ${
+              printval ? "block" : "hidden"
+            }  absolute top-3  right-36 py-2 px-8   rounded-md shadow-lg border-gray-400 bg-gray-200`}
+          >
+            Print
+          </button>
+        )}
+        content={() => componentRef.current}
+      />
     </>
   );
 }
