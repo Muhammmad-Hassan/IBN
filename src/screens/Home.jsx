@@ -9,54 +9,34 @@ function Home() {
   const itemData = [
     {
       id: 1,
-      name: "chaomein",
+      name: "Chaomein",
       price: 280,
     },
     {
       id: 2,
-      name: "rise",
+      name: "Fried Rise",
       price: 150,
     },
     {
+      id: 2,
+      name: "Chicken Rise",
+      price: 300,
+    },
+    {
       id: 3,
-      name: "burger",
+      name: "Zinger Burger",
       price: 250,
     },
     {
       id: 4,
-      name: "burger",
-      price: 250,
+      name: "K2 Burger",
+      price: 350,
     },
     {
       id: 5,
-      name: "burger",
-      price: 250,
-    },
-    {
-      id: 6,
-      name: "burger",
-      price: 250,
-    },
-    {
-      id: 7,
-      name: "burger",
-      price: 250,
-    },
-    {
-      id: 8,
-      name: "burger",
-      price: 250,
-    },
-    {
-      id: 9,
-      name: "burger",
-      price: 250,
-    },
-    {
-      id: 10,
-      name: "burger",
-      price: 250,
-    },
+      name: "Zinger Shourma",
+      price: 160,
+    }
     
   ];
 

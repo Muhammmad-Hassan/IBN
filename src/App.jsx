@@ -2,6 +2,7 @@ import React from 'react'
 import Home from './screens/Home'
 import Navbar from './components/Navbar'
 import ContextProvider from "./helper/ContextProvider";
+import '../src/App.css'
 
 function App() {
   return (
