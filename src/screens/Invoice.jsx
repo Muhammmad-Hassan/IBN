@@ -35,7 +35,7 @@ function Invoice() {
           <div>
             <IoMdClose
               
-              className="text-2xl p-1 bg-red-600 fill-white hover:fill-red-500 hover:bg-white hover:outline outline-1 outline-red-500 transition-all duration-200  cursor-pointer rounded-sm"
+              className="text-3xl p-1 bg-red-600 fill-white hover:fill-red-500 hover:bg-white hover:outline outline-1 outline-red-500 transition-all duration-200  cursor-pointer rounded-sm"
               onClick={() => setPrintVale(!printval)}
             />
           </div>
@@ -99,7 +99,7 @@ function Invoice() {
           </div>
         </div>
         <button
-          className={`border mt-6 w-80 block  mx-auto  py-2 px-8 rounded-md shadow-lg border-gray-400 bg-gray-200`}
+          className={`border   absolute top-6 right-36 py-1 px-8   rounded-md shadow-lg border-gray-400 bg-gray-200`}
           onClick={handlePrint}
         >
           Print
