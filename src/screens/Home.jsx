@@ -17,11 +17,7 @@ function Home() {
       name: "Fried Rise",
       price: 150,
     },
-    {
-      id: 2,
-      name: "Chicken Rise",
-      price: 300,
-    },
+   
     {
       id: 3,
       name: "Zinger Burger",
@@ -36,8 +32,12 @@ function Home() {
       id: 5,
       name: "Zinger Shourma",
       price: 160,
-    }
-    
+    },
+    {
+      id: 6,
+      name: "Chicken Rise",
+      price: 300,
+    },
   ];
 
   return (

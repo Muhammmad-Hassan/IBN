@@ -21,19 +21,19 @@ function Cart() {
           active ? "translate-x-0" : "translate-x-full"
         } transition-all duration-500 z-50 `}
       >
-        <div className="h-[75px]">
+        <div className="h-[90px]">
           <div className="mb-4">
-            <div className="flex justify-between  items-center  scroll-smooth">
+            <div className="flex justify-between shadow-lg p-2 rounded-md items-center  scroll-smooth">
            
-              <span className="font-bold text-x  ">My Orders</span>
+              <span className="font-bold text-x bg-inherit ">My Orders</span>
               <button
-                className="border  py-1 px-5 rounded-md shadow-lg border-gray-400 bg-gray-200"
-                onClick={() => setPrintVale(true) &&  setActive(!active)}
+                className="border  py-1 px-5 rounded-md shadow-md border-gray-200 "
+                onClick={() => setPrintVale(true) }
               >
                 Proceid
               </button>
               <IoMdClose
-                className="text-3xl p-1 bg-red-600 fill-white hover:fill-red-500 hover:bg-white hover:outline outline-1 outline-red-500 transition-all duration-200  cursor-pointer rounded-sm"
+                className="text-4xl border-gray-200 p-2 rounded-md bg-gray-200 cursor-pointer"
                 onClick={() => setActive(!active)}
               />
             </div>

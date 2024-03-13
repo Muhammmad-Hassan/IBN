@@ -1,13 +1,24 @@
-import React, { useContext, useRef } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useContext, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Context from "../helper/Context";
+import { drop } from "../helper/slice/CartSlice";
 import { IoMdClose } from "react-icons/io";
 import ReactToPrint from "react-to-print";
 
 function Invoice() {
   const componentRef = useRef();
+
+  const dispatch = useDispatch();
   const cartItem = useSelector((state) => state.cart.cart);
-  const { printval, setPrintVale } = useContext(Context);
+  const { printval, setPrintVale, setActive, active } = useContext(Context);
+
+  // Initialize invoice number state with the value from local storage or 1 if not available
+  const [invoiceNo, setInvoiceNo] = useState(
+    localStorage.getItem("invoiceNo")
+      ? parseInt(localStorage.getItem("invoiceNo"))
+      : 1
+  );
+
   let totalPrice = cartItem.reduce(
     (total, food) => total + Number(food.qty) * Number(food.price),
     0
@@ -29,6 +40,19 @@ function Invoice() {
   const options = { year: "numeric", month: "2-digit", day: "2-digit" };
   const formattedDate = currentDate.toLocaleDateString("en-GB", options);
 
+  const handleBeforePrint = () => {
+    handlClick();
+    dispatch(drop());
+    setInvoiceNo((prevInvoiceNo) => prevInvoiceNo + 1);
+    setActive(!active);
+    setPrintVale(!printval);
+  };
+
+  // Update local storage when invoice number changes
+  useEffect(() => {
+    localStorage.setItem("invoiceNo", invoiceNo.toString());
+  }, [invoiceNo]);
+
   return (
     <>
       <div
@@ -40,14 +64,12 @@ function Invoice() {
       >
         <div className="flex justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-bold" onClick={handlClick}>
-              Invoice
-            </h1>
+            <h1 className="text-2xl font-bold">Invoice</h1>
             <p className="text-gray-600">{formattedDate}</p>
           </div>
           <div>
             <IoMdClose
-              className="text-3xl p-1 bg-red-600 fill-white hover:fill-red-500 hover:bg-white hover:outline outline-1 outline-red-500 transition-all duration-200  cursor-pointer rounded-sm"
+              className="text-3xl p-1 bg-gray-600 fill-white hover:fill-red-500 hover:bg-white hover:outline outline-1 outline-red-500 transition-all duration-200  cursor-pointer rounded-sm"
               onClick={() => setPrintVale(!printval)}
             />
           </div>
@@ -63,7 +85,7 @@ function Invoice() {
             </div>
             <div>
               <h2 className="font-bold">Invoice No:</h2>
-              <p>#123456</p>
+              <p>#{invoiceNo}</p> {/* Dynamic invoice number */}
             </div>
           </div>
 
@@ -121,12 +143,13 @@ function Invoice() {
           <button
             className={`border ${
               printval ? "block" : "hidden"
-            }  absolute top-3  right-36 py-2 px-8   rounded-md shadow-lg border-gray-400 bg-gray-200`}
+            } absolute top-3 lg:right-36 py-1 px-8 right-32 rounded-md shadow-lg`}
           >
             Print
           </button>
         )}
         content={() => componentRef.current}
+        onBeforePrint={handleBeforePrint}
       />
     </>
   );
