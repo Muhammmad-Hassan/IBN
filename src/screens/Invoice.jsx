@@ -138,6 +138,8 @@ function Invoice() {
           </div>
         </div>
       </div>
+      {
+        cartItem.length > 0 &&
       <ReactToPrint
         trigger={() => (
           <button
@@ -151,6 +153,7 @@ function Invoice() {
         content={() => componentRef.current}
         onBeforePrint={handleBeforePrint}
       />
+          }
     </>
   );
 }
