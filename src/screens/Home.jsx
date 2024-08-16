@@ -3,6 +3,8 @@
   import Cart from "./Cart";
   import Invoice from "./Invoice";
   import axios from "axios";
+  import { decrementQty } from "../helper/slice/CartSlice";
+  import { useDispatch } from "react-redux";
   function Home() {
     const existingDataString = localStorage.getItem("cartItem");
 
@@ -15,7 +17,7 @@
         );
         localStorage.removeItem("cartItem");
       } catch (error) {
-        console.error("Error submitting data to Google Sheets:", error);
+        console.error("Error submitting data to Google Sheets:", error.message);
       }
     };
     
@@ -56,7 +58,7 @@
 
     return (
       <div className="mt-5">
-        <div className="w-full h-full flex flex-wrap gap-3  items-center justify-evenly">
+        <div className="w-full h-full flex flex-wrap flex-col gap-3  items-center justify-evenly">
           {itemData.map((item) => (
             <Card
               key={item.id}
@@ -66,12 +68,12 @@
             />
           ))}
         </div>
-        <button
+        {/* <button
           className=" bg-zinc-400 py-2 px-5 hover:scale-110 rounded-lg mt-2 block m-auto"
           onClick={submitHandler}
         >
           submit
-        </button>
+        </button> */}
         <Cart />
         <Invoice />
       </div>

@@ -32,7 +32,7 @@ const cartSlice = createSlice({
     },
     decrementQty: (state, action) => {
       state.cart = state.cart.map((item) =>
-        item.id === action.payload.id && item.qty > 1
+        item.id === action.payload.id && item.qty > 0
           ? { ...item, qty: item.qty - 1 }
           : item
       );

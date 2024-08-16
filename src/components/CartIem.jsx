@@ -1,8 +1,6 @@
-import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
-import {removeFromCart,incrementQty,decrementQty} from "../helper/slice/CartSlice";
+import {incrementQty,decrementQty} from "../helper/slice/CartSlice";
 import { AiOutlineMinus, AiOutlinePlus  } from "react-icons/ai";
-import { MdDelete } from "react-icons/md";
 
 
 

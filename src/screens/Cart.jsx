@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Context from "../helper/Context";
 import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
-import CartItem from "./CartIem";
+import CartItem from "../components/CartIem";
 
 function Cart() {
   const { active, setActive } = useContext(Context);
